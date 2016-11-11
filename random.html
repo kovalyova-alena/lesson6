@@ -1,0 +1,56 @@
+<!-- Доработайте пример, 005_thisExample.html, при наведении мыши к одному из блоков, цвет блока должен измениться, на уникальный, такой которого еще нету у существующих блоков. Также выведите в блок текстовое оповещение о информации цвета, который используется для фона данного блока. При попытке закрыть вкладку, придупредите пользователя о том что информация будет утеряна. Используйте window.onload.  -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>random</title>
+    <style>
+        div {
+            background-color: #ff2255;
+            height: 150px;
+            width: 150px;
+            margin-left: 10px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+        var div = document.querySelectorAll("div"),
+            divLength = div.length;
+
+        for (var i = 0; divLength > i; i++) {     
+            div[i].onmouseenter = function () {
+                this.style.backgroundColor = randomColor();
+
+                var computedStyle = window.getComputedStyle(this),
+                divBg = computedStyle.backgroundColor;
+
+                this.innerHTML = divBg;
+
+                function randomColor () {
+                    var r = Math.floor(Math.random() * 256),
+                        g = Math.floor(Math.random() * 256),
+                        b = Math.floor(Math.random() * 256),
+                        rgbColor = "rgb(" + r + "," + g + "," + b + ")";
+                        console.log(rgbColor);
+
+                    var returnColor = (divBg != rgbColor) ? rgbColor : randomColor();
+                    return returnColor;
+
+                }
+
+            };
+        }
+
+        window.onbeforeunload = function() {        
+         return "now all is ok";
+      };
+
+    </script>
+</script>
+</body>
+</html>
